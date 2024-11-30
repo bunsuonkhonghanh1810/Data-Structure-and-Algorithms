@@ -24,7 +24,6 @@ class Doctor : public Employee {
             os << ", Chuyen mon: " << specialty << endl;
         }
 
-
         string getSpecialty() {return specialty;}
         void setSpecialty(string& newSpecialty) {specialty = newSpecialty;}
 };

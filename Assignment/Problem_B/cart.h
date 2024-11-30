@@ -1,3 +1,6 @@
+#ifndef __cart__h__
+#define __cart__h__
+
 #include <conio.h>
 #include "single_list.h"
 #include "good.h"
@@ -39,7 +42,7 @@ class cart {
             for (auto i = goods.begin(); i != goods.end(); ++i) {
                 if ((*i).getGoodName() == name) { 
                     cout << "Mat hang da co trong danh sach" << endl;
-                    cout << (*i);
+                    cout << (*i) << endl;
 
                     cout << "1. Tang so luong" << endl;
                     cout << "2. Giam so luong" << endl;
@@ -58,11 +61,11 @@ class cart {
                         cin >> number;
                         cin.ignore();
                         while(number < 0) {
-                            cout << "Vui long nhap lai cho dung: ";
+                            cout << "Vui long nhap lai dung so luong: ";
                             cin >> number;
                             cin.ignore();
                         }
-                        (*i).setGoodQuantity((*i).getGoodQuantity() + number);
+                        (*i).receipt(number);
                         cout << "Da cap nhat" << endl;
                         menu();
                         break;
@@ -76,7 +79,7 @@ class cart {
                             cin >> number;
                             cin.ignore();
                         }
-                        (*i).setGoodQuantity((*i).getGoodQuantity() - number);
+                        (*i).issue(number);
                         if ((*i).getGoodQuantity() == 0) {
                             goods.erase(i.getCurrent());
                             cout << "So luong mon hang bang 0. Tu dong xoa mon hang khoi gio hang" << endl;
@@ -89,16 +92,21 @@ class cart {
                 }
             }
 
+            newGood.setGoodName(name);
             cin >> newGood;
+            while (newGood.getGoodQuantity() <= 0 || newGood.getGoodPrice() <= 0) {
+                cout << "Cac gia tri khong hop le. Moi nhap lai" << endl;
+                cin >> newGood;
+            }
             goods.push_back(newGood);
-            cout << "Da them vao danh sach";
+            cout << "Da them vao danh sach" << endl;
             menu();
         }
 
         void totalPrice() {
             long long total = 0;
             for (auto i = goods.begin(); i != goods.end(); ++i) {
-                total += (*i).getGoodPrice();
+                total += ((*i).getGoodPrice())*((*i).getGoodQuantity());
             }
             cout << "Tong tien cua gio hang la: " << total << endl;
             menu();
@@ -119,10 +127,7 @@ class cart {
 
             file.close();
             cout << "Xuat thanh cong" << endl;
+            menu();
         }
 };
-
-int main() {
-    cart cart;
-    cart.menu();
-}
+#endif

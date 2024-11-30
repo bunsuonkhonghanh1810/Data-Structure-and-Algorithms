@@ -26,7 +26,7 @@ class single_list {
 		}
 		int size() {
 			int count = 0;
-			for (single_list<T>::iterator i = this->begin(); i != this->end(); i++) {
+			for (single_list<T>::iterator i = this->begin(); i != this->end(); ++i) {
 				count++;
 			}
 			return count;

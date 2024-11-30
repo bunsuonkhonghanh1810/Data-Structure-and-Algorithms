@@ -17,7 +17,7 @@ class single_list_iterator {
 		single_list_iterator<T> &operator=(single_list_iterator<T> p) {
 			this->current = p.getCurrent();
 			return *this;
-		}	
+		}
 		bool operator!=(single_list_iterator<T> p) {
 			return current!=p.getCurrent();
 		}

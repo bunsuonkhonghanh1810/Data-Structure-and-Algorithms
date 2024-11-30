@@ -1,6 +1,7 @@
 #ifndef __employeeList__h__
 #define __employeeList__h__
 
+#include <conio.h>
 #include "doctor.h"
 #include "nurse.h"
 
@@ -8,7 +9,6 @@ class VectorEmployee {
     private:
         vector<Employee*> employees;
         vector<Employee*> foundResults;
-        vector<Employee*> deleted;
     public:
         void manualEntry() {
             cout << "Cung cap so luong nhan su can nhap: ";
@@ -166,7 +166,7 @@ class VectorEmployee {
                 cout << "--------------------------------------------------------------" << endl;
             } else {
                 for (int i = 0; i < static_cast<int>(foundResults.size()); i++) {
-                    cout << i + 1 << ". " << *foundResults[i];
+                    cout << i + 1 << ". " << *foundResults[i] << endl;
                 }
             }
         }
@@ -177,7 +177,7 @@ class VectorEmployee {
                 cout << "--------------------------------------------------------------" << endl;
             } else {
                 for (int i = 0; i < static_cast<int>(employees.size()); i++) {
-                    cout << i + 1 << ". " << *employees[i];
+                    cout << i + 1 << ". " << *employees[i] << endl;
                 }
             }
         }
@@ -196,11 +196,9 @@ class VectorEmployee {
                 
                 if (choice1 == '0' && (choice2 >= '1' && choice2 <= '9')) {
                     break;
-                }
-                else if (choice1 == '1' && (choice2 >= '0' && choice2 <= '3')) {
+                } else if (choice1 == '1' && (choice2 >= '0' && choice2 <= '3')) {
                     break;
-                }
-                else {
+                } else {
                     cout << "|    Lua chon khong hop le. Vui long nhap lai (1-13):      |";
                     choice1 = _getch();
                     cout << "\r|    Lua chon khong hop le. Vui long nhap lai (1-13): " << choice1 << "    |";
@@ -267,7 +265,6 @@ class VectorEmployee {
         void chooseDeleteData(int choice) {
             for (int i = 0; i < static_cast<int>(employees.size()); i++) {
                 if (employees[i]->getId() == foundResults[choice - 1]->getId()) {
-                    deleted.push_back(employees[i]);
                     employees.erase(employees.begin() + i);
                     foundResults.erase(foundResults.begin() + (choice - 1));
                     break;
@@ -284,35 +281,37 @@ class VectorEmployee {
         }
 
         void sortById() {
-            sort(employees.begin(), employees.end(), [](Employee* a, Employee* b){
+            sort(employees.begin(), employees.end(), [](Employee* a, Employee* b) {
                 return a->getId().substr(1) < b->getId().substr(1);
             });
         }
 
         void sortByName() {
-            sort(employees.begin(), employees.end(), [](Employee* a, Employee* b){
+            sort(employees.begin(), employees.end(), [](Employee* a, Employee* b) {
                 return a->getName() < b->getName();
             });
         }
 
         void sortByIdDes() {
-            sort(employees.begin(), employees.end(), [](Employee* a, Employee* b){
+            sort(employees.begin(), employees.end(), [](Employee* a, Employee* b) {
                 return a->getId().substr(1) > b->getId().substr(1);
             });
         }
 
         void sortByNameDes() {
-            sort(employees.begin(), employees.end(), [](Employee* a, Employee* b){
+            sort(employees.begin(), employees.end(), [](Employee* a, Employee* b) {
                 return a->getName() > b->getName();
             });
         }
 
         void sortByDot() {
-            sort(employees.begin(), employees.end());
+            sort(employees.begin(), employees.end(), [](Employee* a, Employee* b) {
+                return a < b;
+            });
         }
 
         void sortByDotDes() {
-            sort(employees.begin(), employees.end(), [](Employee* a, Employee* b){
+            sort(employees.begin(), employees.end(), [](Employee* a, Employee* b) {
                 return a > b;
             });
         }

@@ -14,6 +14,7 @@ class Employee {
         string email;
 
     public:
+        // constructor mặc định
         Employee() {}
         
         Employee(string id, string name, string dateOfBirth, string address, string phoneNumber, string email)
@@ -52,6 +53,18 @@ class Employee {
             employee.output(os);
             return os;
         }
+
+        void splitDate(string& dob, int& day, int& month, int& year) {
+            stringstream ss(dob);
+            string segment;
+            getline(ss, segment, '/');
+            day = stoi(segment);
+            getline(ss, segment, '/');
+            month = stoi(segment);
+            getline(ss, segment, '/');
+            year = stoi(segment);
+        }
+
         bool operator < (Employee& other) {
             int day1, month1, year1;
             int day2, month2, year2;
@@ -59,9 +72,9 @@ class Employee {
             splitDate(this->dateOfBirth, day1, month1, year1);
             splitDate(other.dateOfBirth, day2, month2, year2);
 
-            if (year1 != year2) return year1 < year2;
-            if (month1 != month2) return month1 < month2;
-            return day1 < day2;
+            if (year1 != year2) return year1 > year2;
+            if (month1 != month2) return month1 > month2;
+            return day1 > day2;
         }
 
         string getId() {return id;}
@@ -81,16 +94,5 @@ class Employee {
 
         string getEmail() {return email;}
         void setEmail(string& newEmail) {email = newEmail;}
-
-        void splitDate(string& dob, int& day, int& month, int& year) {
-            stringstream ss(dob);
-            string segment;
-            getline(ss, segment, '/');
-            day = stoi(segment);
-            getline(ss, segment, '/');
-            month = stoi(segment);
-            getline(ss, segment, '/');
-            year = stoi(segment);
-        }
 };
 #endif

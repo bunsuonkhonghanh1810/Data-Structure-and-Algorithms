@@ -136,10 +136,8 @@ class App {
                         deleteData();
                     } else {
                         vectorEmployee.chooseDeleteData(choice);
-                        if (vectorEmployee.numberOfFoundResults() == 0) {
-                            vectorEmployee.displayFoundResults();
-                            deleteData();
-                        } else vectorEmployee.displayFoundResults();
+                        vectorEmployee.displayFoundResults();
+                        deleteData();
                     }
                 }
             }
